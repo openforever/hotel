@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name>Archetype Created Web Application</display-name>
+  <!-- 读取spring配置文件 配置Spring配置文件的名称和位置 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring.xml;
+            classpath:spring-mybatis.xml
+        </param-value>
+    </context-param>
+    <!-- 设计路径变量值
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>springmvc.root</param-value>
+    </context-param> -->
+ 
+    <!-- 日志记录 -->
+    <context-param>
+        <!-- 日志配置文件路径 -->
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:log4j.properties</param-value>
+    </context-param>
+    <context-param>
+        <!-- 日志页面的刷新间隔 -->
+        <param-name>log4jRefreshInterval</param-name>
+        <param-value>6000</param-value>
+    </context-param>
+    
+    <!-- Spring字符集过滤器 -->
+    <filter>
+	  	<filter-name>encodingFilter</filter-name>
+	  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	  	<init-param>
+	  		<param-name>encoding</param-name>
+	  		<param-value>utf-8</param-value>
+	  	</init-param>
+	  </filter>
+	
+	  <filter-mapping>
+	  	<filter-name>encodingFilter</filter-name>
+	  	<url-pattern>/*</url-pattern>
+	  </filter-mapping>
+  
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+ 
+    <!-- 读取spring的配置文件，需要配置监听器  配置启动Spring IOC容器的Listener-->
+    <listener> 
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+  <!--  <listener>
+  	<listener-class>com.jsoft.edums.common.listener.WebAppContextListener</listener-class>
+  	</listener> -->
+ 
+    <!-- 
+    	Spring提供ServletContentListener的一个实现类ContextLoaderListener监听器，该类可以作为Listener使用，在启动Tomcat
+	容器的时候，该类的作用就是自动装载ApplicationContext的配置信息，如果没有设置contextConfigLocation的初始参数则会
+	使用默认参数WEB-INF路径下的application.xml文件。如果需要自定义读取多个配置文件或者修改默认路径，则可以在web.xml
+	中设置：
+	
+	ContextLoaderListener会读取这些XML文件并产生 WebApplicationContext对象，然后将这个对象放置在ServletContext的属性
+里，这样我们只要可以得到Servlet就可 以得到WebApplicationContext对象，并利用这个对象访问spring 容器管理的bean。	 -->
+
+	<!--springMVC核心配置 
+		 配置SpringMVC的dispatcherServlet 
+		截获请求后，就通过控制器上的@RequestMapping提供的映射信息确定请求所对应的处理方法-->
+    <servlet>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <!-- 该servlet是在该web应用被加载的时候就被创建，而不是等第一次被请求的时候创建 -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <!-- 映射所有请求，包括静态资源，使用静态资源如JS库等，需要单独处理  
+        	<url-pattern>*.html</url-pattern>
+        -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <!-- 配置：HiddenHttpMethodFilter，将POST请求转换为DELETE或者PUT请求
+	<filter>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>  -->
+ 
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index</welcome-file>
+    </welcome-file-list>
+ 
+    <!-- 错误跳转页面 -->
+    <error-page>
+        <!-- 路径不正确 -->
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- 没有访问权限，访问被禁止 -->
+        <error-code>405</error-code>
+        <location>/error/405.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- 内部错误 -->
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
+</web-app>

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>index</title>
-<script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="static/js/jquery/jquery-1.9.1.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#testJson").click(function(){
@@ -25,6 +25,8 @@
 </script>
 </head>
 <body>
-	
+	hello world
+	<a href="user/add">add user</a> <br>
+	<a href="user/del/0">delete user</a> <br>
 </body>
 </html>
