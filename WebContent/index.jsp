@@ -28,5 +28,7 @@
 	hello world
 	<a href="user/add">add user</a> <br>
 	<a href="user/del/0">delete user</a> <br>
+	<a href="user/login">登录</a> <br>
+	<a href="user/register">注册</a>
 </body>
 </html>

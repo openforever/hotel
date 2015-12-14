@@ -42,6 +42,23 @@ public class UserController extends BaseController {
 	private MenuService menuService;*/
 	 
 	/**
+	 * <b>日期：</b> 2015-12-14<br>
+	 * @return 登录页面
+	 */
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String login(){
+		return "system/user/login";
+	}
+	
+	/**
+	 * <b>日期：</b> 2015-12-14<br>
+	 * @return 注册页面
+	 */
+	@RequestMapping(value="/register",method=RequestMethod.GET)
+	public String register(){
+		return "system/user/register";
+	}
+	/**
 	 *  <br>
 	 * <b>功能：</b>请求新增用户页面<br>
 	 * <b>作者：</b>周晨<br>

@@ -7,7 +7,7 @@ import cn.edu.jlu.hotelms.system.entity.User;
 
 /**
  * 对于用户的service操作
- * @author 李成
+ * @author 赵开永
  *
  */
 public interface UserService {
