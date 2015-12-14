@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.jlu.hotelms.system.mapper.UserMapper">
+	<sql id="userColumns">loginname,username,password,rights,status,roleId</sql>
+
+	<resultMap type="User" id="userAndRoleResultMap">
+		<id column="userId" property="userId"/>
+		<result column="loginname" property="loginname"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="registerTime" property="status"/>
+		<result column="lastLogTime" property="lastLogTime"/>
+		<association property="role" column="roleId" javaType="Role">
+			<id column="roleId" property="roleId"/>
+			<result column="roleName" property="roleName"/>
+			<result column="describle" property="describle"/>
+		</association>
+	</resultMap>
+	<resultMap type="User" id="userResultMap">
+		<id column="userId" property="userId"/>
+		<result column="loginname" property="loginname"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="registerTime" property="registerTime"/>
+		<result column="lastLogTime" property="lastLogTime"/>
+		<result column="roleId" property="roleId"/>
+	</resultMap>
+	
+	<select id="getUserInfo" parameterType="User" resultMap="userResultMap">
+		select * from users where 1=1 and isDelete=0
+		<if test="loginname!=null and password!=null">
+		and loginname = #{loginname} and password=#{password}
+		</if>
+		<if test="userId!=null and userId>0">
+		and userId = #{userId}
+		</if>
+	</select>
+	
+	<update id="updateLastLogin" parameterType="User">
+		update users set lastLogTime=#{lastLogTime} where userId=#{userId}
+	</update>
+	
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+		insert users (loginname,username,password,registerTime,roleId,isDelete) values (#{loginname},#{username},#{password},#{registerTime},#{roleId},0)
+	</insert>
+	<update id="deleteUser" parameterType="int">
+	    update users set isDelete=1 where userId=#{userId}
+	</update>
+	<select id="getUserById" parameterType="int" resultMap="userResultMap">
+		select * from  users  where userId = #{userId}
+	</select>
+	<select id="getUserAndRoleById" parameterType="int" resultMap="userAndRoleResultMap">
+		select u.userId,u.loginname,u.username,u.password,r.roleId,r.roleName,r.describle 
+		from users u 
+		left join role r on u.roleId=r.roleId 
+		where  u.userid=#{userId}
+	</select>
+	<update id="updateUser" parameterType="User">
+		update users set 
+		loginname=#{loginname},
+		username=#{username},
+		password=#{password}		
+		where userId=#{userId} 
+	</update>
+	<update id="updateUserRole" parameterType="User">
+		update users set roleId=#{roleId} where userId= #{userId} and isDelete=0
+	</update>
+</mapper>

@@ -7,7 +7,7 @@ import cn.edu.jlu.hotelms.common.entity.Page;
 
 /**
  * 表示用户实体类
- * @author 李成
+ * @author 赵开永
  *
  */
 public class User implements Serializable{
