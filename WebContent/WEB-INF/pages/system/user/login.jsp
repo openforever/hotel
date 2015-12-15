@@ -39,7 +39,7 @@
 
 					<div class="input-group">
 						<div class="input-group-addon">
-							<i>Username</i>
+							<i>用户名</i>
 						</div>
 
 						<input type="text" class="form-control" name="username" id="username" autocomplete="off" />
@@ -51,7 +51,7 @@
 
 					<div class="input-group">
 						<div class="input-group-addon">
-							<i>Password</i>
+							<i>密码</i>
 						</div>
 
 						<input type="password" class="form-control" name="password" id="password" autocomplete="off" />
@@ -60,8 +60,8 @@
 				</div>
 
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block btn-login">
-						Login In
+					<button type="submit" style="text-align:center" class="btn btn-primary btn-block btn-login">
+						登录
 					</button>
 				</div>
 
