@@ -22,28 +22,7 @@ public interface UserMapper  {
 	public List<User> listPageUser(Page page);
 	
 	public List<User> listPageUserByCondition(Map<String, Object> map);
-	/**
-	 * 得到一个user的具体对象信息 根据传入的user对象中的不同的信息
-	 * @param user
-	 * @return
-	 */
-	User getUserInfo(User user);
-	/**
-	 * 更新一个user对象的上次登录时间这个字段
-	 * @param user
-	 */
-	void updateLastLogin(User user);
 	
-	/**
-	 *<br>
-	 * <b>功能：</b>根据用户Id对其角色进行修改<br>
-	 * <b>作者：</b>袁鑫<br>
-	 * <b>日期：</b> 2014-12-3<br>
-	 * @param user
-	 * 
-	 */
-	
-	void updateUserRole(User user);
 	/**
 	 *<br>
 	 * <b>功能：</b>列出没有分配角色的用户 并分页<br>
@@ -66,6 +45,16 @@ public interface UserMapper  {
 	 * 等待修正
 	 */
 	List<User> listAllUser();
+	List<User> listPageUser(User user);
+	
+	
+	/**
+	 * 得到一个user的具体对象信息 根据传入的user对象中的不同的信息
+	 * @param user
+	 * @return
+	 */
+	User getUserInfo(User user);
+	
 	/**
 	 *  <br>
 	 * <b>功能：</b> 根据userId得到User<br>
@@ -75,6 +64,52 @@ public interface UserMapper  {
 	 * @return
 	 */
 	User getUserById(Integer userId);
+	int getCountByName(String loginname);
+	int getCount(User user);
+	/**
+	 *  <br>
+	 * <b>功能：</b> 根据userId得到User(含role)<br>
+	 * <b>作者：</b>周晨<br>
+	 * <b>日期：</b> 2014-11-22<br>
+	 * @param userId
+	 * @return
+	 */
+	User getUserAndRoleById(Integer userId);
+	
+	
+	/**
+	 * 更新一个user对象的上次登录时间这个字段
+	 * @param user
+	 */
+	void updateLastLogin(User user);
+	
+	/**
+	 *<br>
+	 * <b>功能：</b>根据用户Id对其角色进行修改<br>
+	 * <b>作者：</b>袁鑫<br>
+	 * <b>日期：</b> 2014-12-3<br>
+	 * @param user
+	 * 
+	 */
+	
+	void updateUserRole(User user);
+	
+	
+	
+	
+	/**
+	 *  <br>
+	 * <b>功能：</b>更新User<br>
+	 * <b>作者：</b>周晨<br>
+	 * <b>日期：</b> 2014-11-23<br>
+	 **/
+	void updateUser(User user);
+	
+	void updateUserBaseInfo(User user);
+	
+	void updateUserRights(User user);
+	
+	
 	/**
 	 *  <br>
 	 * <b>功能：</b>插入用户信息<br>
@@ -88,19 +123,7 @@ public interface UserMapper  {
 	 * @return
 	 */
 	void insertUser(User user);
-	/**
-	 *  <br>
-	 * <b>功能：</b>更新User<br>
-	 * <b>作者：</b>周晨<br>
-	 * <b>日期：</b> 2014-11-23<br>
-	 **/
-	void updateUser(User user);
 	
-	void updateUserBaseInfo(User user);
-	
-	void updateUserRights(User user);
-	
-	int getCountByName(String loginname);
 	/**
 	 *  <br>
 	 * <b>功能：</b> 删除某个用户<br>
@@ -111,18 +134,7 @@ public interface UserMapper  {
 	 */
 	void deleteUser(int userId);
 	
-	int getCount(User user);
 	
-	List<User> listPageUser(User user);
-	/**
-	 *  <br>
-	 * <b>功能：</b> 根据userId得到User(含role)<br>
-	 * <b>作者：</b>周晨<br>
-	 * <b>日期：</b> 2014-11-22<br>
-	 * @param userId
-	 * @return
-	 */
-	User getUserAndRoleById(Integer userId);
 	
 	
 }

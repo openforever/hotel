@@ -34,51 +34,6 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> listPageUserByCondition(Page page,String condition);
-	
-	
-	/*
-	 * 等待修正
-	 */
-	/**
-	 *  <br>
-	 * <b>功能：</b> 根据userId得到User<br>
-	 * <b>作者：</b>周晨<br>
-	 * <b>日期：</b> 2014-11-22<br>
-	 * @param userId
-	 * @return
-	 */
-	User getUserById(Integer userId);
-	/**
-	 *  <br>
-	 * <b>功能：</b>插入用户信息<br>
-	 * <b>作者：</b>周晨<br>
-	 * <b>日期：</b> 2014-11-22<br>
-	 * @param model
-	 * @param roleId
-	 * @param userName
-	 * @param loginname
-	 * @param password1
-	 * @return
-	 */
-	void insertUser(User user,Integer roleId,String userName,String loginname, String password1);
-	
-	boolean insertUser(User user);
-	/**
-	 *  <br>
-	 * <b>功能：</b>更新User<br>
-	 * <b>作者：</b>周晨<br>
-	 * <b>日期：</b> 2014-11-23<br>
-	 **/
-	void updateUser(User user, String username, String loginname, String newpassword1);
-	/**
-	 <br>
-	 * <b>功能：</b>根据用户Id对其角色进行修改<br>
-	 * <b>作者：</b>袁鑫<br>
-	 * <b>日期：</b> 2014-12-3<br>
-	 * @param userId
-	 * @param roleId
-	 */
-	void updateUserRole(int userId , int roleId);
 	/**
 	 *<br>
 	 * <b>功能：</b>列出没有分配角色的用户 并分页<br>
@@ -97,11 +52,58 @@ public interface UserService {
 	 * 
 	 */
 	public List<User> listPageRole(Page page);
+	List<User> listPageUser(User user);
+	List<User> listAllUser();
+	
+	/*
+	 * 等待修正
+	 */
+	/**
+	 *  <br>
+	 * <b>功能：</b> 根据userId得到User<br>
+	 * <b>作者：</b>周晨<br>
+	 * <b>日期：</b> 2014-11-22<br>
+	 * @param userId
+	 * @return
+	 */
+	User getUserById(Integer userId);
 	User getUserByNameAndPwd(String username,String password);
+	User getUserAndRoleById(Integer userId);
 	
+	/**
+	 *  <br>
+	 * <b>功能：</b>插入用户信息<br>
+	 * <b>作者：</b>周晨<br>
+	 * <b>日期：</b> 2014-11-22<br>
+	 * @param model
+	 * @param roleId
+	 * @param userName
+	 * @param loginname
+	 * @param password1
+	 * @return
+	 */
+	void insertUser(User user,Integer roleId,String userName,String loginname, String password1);
+	boolean insertUser(User user);
+	
+	/**
+	 *  <br>
+	 * <b>功能：</b>更新User<br>
+	 * <b>作者：</b>周晨<br>
+	 * <b>日期：</b> 2014-11-23<br>
+	 **/
+	void updateUser(User user, String username, String loginname, String newpassword1);
+	/**
+	 <br>
+	 * <b>功能：</b>根据用户Id对其角色进行修改<br>
+	 * <b>作者：</b>袁鑫<br>
+	 * <b>日期：</b> 2014-12-3<br>
+	 * @param userId
+	 * @param roleId
+	 */
+	void updateUserRole(int userId , int roleId);
 	void updateUserBaseInfo(User user);
-	
 	void updateUserRights(User user);
+	void updateLastLogin(User user);
 	
 	/**
 	 *  <br>
@@ -113,11 +115,4 @@ public interface UserService {
 	 */
 	void deleteUser(int userId);
 	
-	List<User> listPageUser(User user);
-	
-	void updateLastLogin(User user);
-	
-	User getUserAndRoleById(Integer userId);
-	
-	List<User> listAllUser();
 }

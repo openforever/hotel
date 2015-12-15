@@ -25,22 +25,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public User getUserById(Integer userId) {
-		
-		return userMapper.getUserById(userId);
-	}
-
-	public boolean insertUser(User user) {
-		
-		int count = userMapper.getCountByName(user.getLoginname());
-		if(count>0){
-			return false;
-		}else{
-			userMapper.insertUser(user);
-			return true;
-		}
-		
-	}
 	/**
 	 *  <br>
 	 * <b>功能：</b>根据page 返回当前页的所有的user<br>
@@ -71,42 +55,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 		return userMapper.listPageUserByCondition(map);
 	}
 	
-	public void updateUser(User user) {
-		
-		userMapper.updateUser(user);
-	}
-
-	public void updateUserBaseInfo(User user){
-		userMapper.updateUserBaseInfo(user);
-	}
-	
-	public void updateUserRights(User user){
-		userMapper.updateUserRights(user);
-	}
-	
-	public User getUserByNameAndPwd(String loginname, String password) {
-		
-		User user = new User();
-		user.setLoginname(loginname);
-		user.setPassword(password);
-		return userMapper.getUserInfo(user);
-	}
-
-	public void deleteUser(int userId){
-		userMapper.deleteUser(userId);
-	}
-
-	public User getUserAndRoleById(Integer userId) {
-		
-		return userMapper.getUserAndRoleById(userId);
-	}
-
-	public void updateLastLogin(User user) {
-	
-		userMapper.updateLastLogin(user);
-	}
-
-	public List<User> listAllUser() {
+public List<User> listAllUser() {
 		
 		return userMapper.listAllUser();
 	}
@@ -120,6 +69,54 @@ public class UserServiceImpl extends BaseService implements UserService {
 	 */
 	public List<User> listPageUser(Page page) {		
 		return userMapper.listPageUser(page);
+	}
+	/**
+	 *<br>
+	 * <b>功能：</b>列出没有分配角色的用户 并分页<br>
+	 * <b>作者：</b>袁鑫<br>
+	 * <b>日期：</b> 2014-12-3<br>
+	 * @param page
+	 * 
+	 */
+	public List<User> listPageNoRole(Page page) {
+		return userMapper.listPageNoRole(page);
+	}
+	/**
+	 *<br>
+	 * <b>功能：</b>列出已经分配角色的用户 并分页<br>
+	 * <b>作者：</b>袁鑫<br>
+	 * <b>日期：</b> 2014-12-3<br>
+	 * @param page
+	 * 
+	 */
+	public List<User> listPageRole(Page page) {
+		return userMapper.listPageRole(page);
+	}
+	
+	
+	public User getUserById(Integer userId) {
+		return userMapper.getUserById(userId);
+	}
+
+	public User getUserByNameAndPwd(String loginname, String password) {
+		User user = new User();
+		user.setLoginname(loginname);
+		user.setPassword(password);
+		return userMapper.getUserInfo(user);
+	}
+	public User getUserAndRoleById(Integer userId) {
+		return userMapper.getUserAndRoleById(userId);
+	}
+	
+	
+	public boolean insertUser(User user) {
+		int count = userMapper.getCountByName(user.getLoginname());
+		if(count>0){
+			return false;
+		}else{
+			userMapper.insertUser(user);
+			return true;
+		}
 	}
 	/**
 	 *  <br>
@@ -142,6 +139,30 @@ public class UserServiceImpl extends BaseService implements UserService {
 		user.setRegisterTime(new Date());
 		userMapper.insertUser(user);
 	}
+	
+	
+	public void updateUser(User user) {
+		userMapper.updateUser(user);
+	}
+
+	public void updateUserBaseInfo(User user){
+		userMapper.updateUserBaseInfo(user);
+	}
+	
+	public void updateUserRights(User user){
+		userMapper.updateUserRights(user);
+	}
+	
+	
+
+	
+
+	
+
+	public void updateLastLogin(User user) {
+		userMapper.updateLastLogin(user);
+	}
+
 	/**
 	 *  <br>
 	 * <b>功能：</b>更新User<br>
@@ -154,7 +175,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 		user.setLoginname(loginname);
 		user.setPassword(newpassword1);
 		userMapper.updateUser(user);
-		
 	}
 	/**
 	 <br>
@@ -169,31 +189,11 @@ public class UserServiceImpl extends BaseService implements UserService {
 		user.setUserId(userId);
 		user.setRoleId(roleId);
 		userMapper.updateUserRole(user);
-		
 	}
-	/**
-	 *<br>
-	 * <b>功能：</b>列出没有分配角色的用户 并分页<br>
-	 * <b>作者：</b>袁鑫<br>
-	 * <b>日期：</b> 2014-12-3<br>
-	 * @param page
-	 * 
-	 */
-	public List<User> listPageNoRole(Page page) {
-		
-		return userMapper.listPageNoRole(page);
-	}
-	/**
-	 *<br>
-	 * <b>功能：</b>列出已经分配角色的用户 并分页<br>
-	 * <b>作者：</b>袁鑫<br>
-	 * <b>日期：</b> 2014-12-3<br>
-	 * @param page
-	 * 
-	 */
-	public List<User> listPageRole(Page page) {
 	
-		return userMapper.listPageRole(page);
+	
+	public void deleteUser(int userId){
+		userMapper.deleteUser(userId);
 	}
 	
 }
