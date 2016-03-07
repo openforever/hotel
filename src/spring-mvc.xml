@@ -47,4 +47,25 @@
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
+	<!-- dispatcherServlet并不知道如何处理multipart的表单数据
+	SpringMVC上传文件时,需配置MultipartResolver解析器，把POST请求的multipart数据抽取出来
+	然后dispatcherServlet就能将其传递给控制器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 指定所上传文件的总大小不能超过800000KB......
+        注意maxUploadSize属性的限制不是针对单个文件,而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="800000000"/>
+    </bean>
+    
+     <!-- SpringMVC在超出上传文件限制时,会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的,而且此时还没有进入到Controller方法中 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时,自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">student/archives/error_fileupload</prop>
+            </props>
+        </property>
+    </bean>
+	
+	
 </beans>
